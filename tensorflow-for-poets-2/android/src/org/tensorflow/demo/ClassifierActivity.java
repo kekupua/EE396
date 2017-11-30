@@ -16,6 +16,7 @@
 
 package org.tensorflow.demo;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -26,12 +27,15 @@ import android.media.Image;
 import android.media.Image.Plane;
 import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Trace;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 
 import java.util.List;
 import java.util.Vector;

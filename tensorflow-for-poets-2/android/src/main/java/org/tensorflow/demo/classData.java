@@ -3,6 +3,8 @@ package org.tensorflow.demo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class classData extends Activity {
@@ -13,10 +15,19 @@ public class classData extends Activity {
         setContentView(R.layout.activity_class_data);
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        // String message = intent.getStringExtra(ClassifierActivity.EXTRA_MESSAGE);
+        //String message = intent.getStringExtra(ClassifierActivity.EXTRA_MESSAGE);
 
         // Capture the layout's TextView and set the string as its text
         TextView title = (TextView) findViewById(R.id.title);
         title.setText("Test Here");
+
+        Button goBack = (Button) findViewById(R.id.goCamera);
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }
