@@ -46,9 +46,6 @@ public class RecognitionScoreView extends View implements ResultsView {
     bgPaint.setColor(0xcc024731);
   }
 
-  private void readClassData(){
-      ClassSample sample;
-  }
 
   @Override
   public void setResults(final List<Recognition> results) {

@@ -27,15 +27,27 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.util.Size;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 import android.view.View;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.tensorflow.demo.env.Logger;
 import org.tensorflow.demo.R;
+import org.tensorflow.demo.env.Room;
 
 public abstract class CameraActivity extends Activity implements OnImageAvailableListener {
   private static final Logger LOGGER = new Logger();
@@ -50,7 +62,7 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
   private Handler handler;
   private HandlerThread handlerThread;
 
-  DBHandler myDB;
+  DatabaseHelper mDatabase;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -60,13 +72,16 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
 
     setContentView(R.layout.activity_camera);
 
-    myDB = new DBHandler(this); //Constructor to create db
+    mDatabase = new DatabaseHelper(this); //Create new database
+
 
     if (hasPermission()) {
       setFragment();
     } else {
       requestPermission();
     }
+
+    readRoomData();
 
     Button getClassData = (Button) findViewById(R.id.getClass);
     getClassData.setOnClickListener(new View.OnClickListener(){
@@ -75,6 +90,45 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
         launchActivity();
       }
     });
+
+  }
+
+  //List
+  private List<Room> roomList = new ArrayList<>();
+  //read from csv
+  private void readRoomData(){
+    //grab data from csv
+    InputStream is = getResources().openRawResource(R.raw.uhm_res);
+
+    //Line by line reader
+    BufferedReader reader = new BufferedReader(
+            new InputStreamReader(is, Charset.forName("UTF-8"))
+    );
+
+    //grab a single line
+    String line = null;
+    try {
+      //step over first line
+      reader.readLine();
+
+      while ((line = reader.readLine()) != null){
+
+        Log.d("MyActivity", "Line" + line );
+        //Split by ,
+        String[] tokens = line.split(",");
+
+        //read Data
+        Room classroom = new Room(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5]);
+
+        //add to list
+        roomList.add(classroom);
+
+        Log.d("MyActivity","Just Created: " + classroom);
+      }
+    } catch (IOException e) {
+      Log.wtf("MyActivity: ERROR reading datafile " + line, e);
+      e.printStackTrace();
+    }
 
   }
 
