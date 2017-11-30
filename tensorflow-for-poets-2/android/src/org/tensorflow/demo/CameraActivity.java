@@ -117,7 +117,8 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
         //Split by ,
         String[] tokens = line.split(",");
 
-        //read Data
+        if (tokens.length < 6) { tokens[5] = "0";}
+          //read Data
         Room classroom = new Room(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5]);
 
         //add to list
