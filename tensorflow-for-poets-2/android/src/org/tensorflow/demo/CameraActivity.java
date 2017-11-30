@@ -19,6 +19,7 @@ package org.tensorflow.demo;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.Image.Plane;
 import android.media.ImageReader.OnImageAvailableListener;
@@ -29,7 +30,9 @@ import android.os.HandlerThread;
 import android.util.Size;
 import android.view.KeyEvent;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
+import android.view.View;
 import java.nio.ByteBuffer;
 import org.tensorflow.demo.env.Logger;
 import org.tensorflow.demo.R;
@@ -64,6 +67,20 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
     } else {
       requestPermission();
     }
+
+    Button getClassData = (Button) findViewById(R.id.getClass);
+    getClassData.setOnClickListener(new View.OnClickListener(){
+      @Override
+      public void onClick(View view){
+        launchActivity();
+      }
+    });
+
+  }
+
+  private void launchActivity() {
+    Intent intent = new Intent(this, classData.class);
+    startActivity(intent);
   }
 
   @Override
