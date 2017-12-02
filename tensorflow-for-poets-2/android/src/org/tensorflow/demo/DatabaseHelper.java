@@ -9,6 +9,7 @@ import android.util.Log;
 
 import org.tensorflow.demo.env.Room;
 
+import java.sql.SQLInput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +17,20 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     private static final String TAG = "DatabaseHelper";
     private static final String TABLE_NAME = "rooms";
+    private static final String DATABASE_NAME = "Rooms.db";
     //Field
-    private static final String COL_1 = "CourseNum";
-    private static final String COL_2 = "CourseTitle";
-    private static final String COL_3 = "CourseInstr";
-    private static final String COL_4 = "CourseDay";
-    private static final String COL_5 = "CourseTime";
-    private static final String COL_6 = "CourseLoc";
-    private static final String COL_7 = "ID";
+    private static final String COL_1 = "_CourseNum";
+    private static final String COL_2 = "_CourseTitle";
+    private static final String COL_3 = "_CourseInstr";
+    private static final String COL_4 = "_CourseDay";
+    private static final String COL_5 = "_CourseTime";
+    private static final String COL_6 = "_CourseLoc";
+    private static final String COL_7 = "_ID";
 
 
     public DatabaseHelper(Context context) {
-        super(context, TABLE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 1);
+        SQLiteDatabase db = getWritableDatabase();
     }
 
 
@@ -35,14 +38,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
 
         //SQL command
-        String createTable = "CREATE TABLE " + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                COL_1 + " TEXT, " +
-                COL_2 + " TEXT, " +
-                COL_3 + " TEXT, " +
-                COL_4 + " TEXT, " +
-                COL_5 + " TEXT, " +
-                COL_6 + " TEXT)";
-
+        String createTable = "CREATE TABLE " + TABLE_NAME + "(" +
+                COL_7 + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                COL_1 + " TEXT," +
+                COL_2 + " TEXT," +
+                COL_3 + " TEXT," +
+                COL_4 + " TEXT," +
+                COL_5 + " TEXT," +
+                COL_6 + " TEXT " +
+                ");";
         db.execSQL(createTable);
 
     }

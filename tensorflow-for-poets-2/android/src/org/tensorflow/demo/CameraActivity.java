@@ -71,6 +71,7 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     setContentView(R.layout.activity_camera);
+    mDatabase = new DatabaseHelper(this); //Create new database
 
     if (hasPermission()) {
       setFragment();
@@ -80,13 +81,10 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
 
     readRoomData();
 
-    mDatabase = new DatabaseHelper(this); //Create new database
-
-
   }
 
   //List
-  private List<Room> roomList = new ArrayList<>();
+//  private List<Room> roomList = new ArrayList<>();
   //read from csv
   private void readRoomData(){
     //grab data from csv
@@ -112,8 +110,10 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
         //read Data
         Room classroom = new Room(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5]);
 
+        //add classroom to db
+        mDatabase.testaddData(classroom);
         //add to list
-        roomList.add(classroom);
+       // roomList.add(classroom);
 
         Log.d("MyActivity","Just Created: " + classroom);
       }
