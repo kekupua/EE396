@@ -7,6 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.tensorflow.demo.env.Room;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     private static final String TAG = "DatabaseHelper";
@@ -48,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean addData(String item){
+   public boolean addData(String item){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1 , item);
@@ -64,4 +69,23 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
 
     }
+
+    public void testaddData(Room classroom){
+        ContentValues values = new ContentValues();
+        values.put(COL_1,classroom.getCourseNum());
+        values.put(COL_2,classroom.getCourseTitle());
+        values.put(COL_3,classroom.getCourseInstr());
+        values.put(COL_4,classroom.getCourseDay());
+        values.put(COL_5,classroom.getCourseTime());
+        values.put(COL_6,classroom.getCourseLoc());
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        //insert into table
+        db.insert(TABLE_NAME,null,values);
+        db.close();
+    }
+
+
+
 }
