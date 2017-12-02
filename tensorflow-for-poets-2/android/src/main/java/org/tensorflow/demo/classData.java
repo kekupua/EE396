@@ -2,12 +2,28 @@ package org.tensorflow.demo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import org.tensorflow.demo.DatabaseHelper;
+import org.tensorflow.demo.env.Room;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class classData extends Activity {
+
+    DatabaseHelper mDataBase = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,5 +44,15 @@ public class classData extends Activity {
                 finish();
             }
         });
+
+        //mDatabase is the Database class, getRoomclasses will return a List of "Room Objects" that matches the CourseLocation you passed
+        //in (i.e. mDatabase.getRoomclasses("HOLM 387");
+        List<Room> result;
+        result = mDataBase.getRoomclasses("SAKAM C101");
+
+        Log.d("CourseList","List: " + result);
+
     }
+
+
 }

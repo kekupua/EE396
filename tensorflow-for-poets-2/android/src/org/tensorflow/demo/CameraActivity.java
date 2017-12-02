@@ -45,9 +45,11 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.tensorflow.demo.env.Logger;
 import org.tensorflow.demo.R;
 import org.tensorflow.demo.env.Room;
+
 
 public abstract class CameraActivity extends Activity implements OnImageAvailableListener {
   private static final Logger LOGGER = new Logger();
@@ -80,11 +82,8 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
     }
 
     readRoomData();
-
   }
 
-  //List
-//  private List<Room> roomList = new ArrayList<>();
   //read from csv
   private void readRoomData(){
     //grab data from csv
@@ -103,7 +102,7 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
 
       while ((line = reader.readLine()) != null){
 
-       // Log.d("MyActivity", "Line" + line );
+        // Log.d("MyActivity", "Line" + line );
         //Split by ,
         String[] tokens = line.split(",");
 
@@ -112,10 +111,8 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
 
         //add classroom to db
         mDatabase.testaddData(classroom);
-        //add to list
-       // roomList.add(classroom);
 
-        Log.d("MyActivity","Just Created: " + classroom);
+
       }
     } catch (IOException e) {
       Log.wtf("MyActivity: ERROR reading datafile " + line, e);
@@ -123,6 +120,7 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
     }
 
   }
+
 
   @Override
   public synchronized void onStart() {
