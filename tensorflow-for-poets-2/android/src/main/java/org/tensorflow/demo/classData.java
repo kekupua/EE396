@@ -15,14 +15,13 @@ public class classData extends Activity {
         setContentView(R.layout.activity_class_data);
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        //String message = intent.getStringExtra(ClassifierActivity.EXTRA_MESSAGE);
-
+        String title1 = getIntent().getStringExtra("Title");
+        String confidence = getIntent().getStringExtra("Confidence");
         // Capture the layout's TextView and set the string as its text
         TextView title = (TextView) findViewById(R.id.title);
-        title.setText("Test Here");
+        title.setText(title1.toUpperCase());
 
         Button goBack = (Button) findViewById(R.id.goCamera);
-
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -182,7 +182,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
   @Override
   public void onImageAvailable(final ImageReader reader) {
     Image image = null;
-
+    addClick();
     try {
       image = reader.acquireLatestImage();
 
@@ -289,4 +289,22 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
       borderedText.drawLines(canvas, 10, canvas.getHeight() - 10, lines);
     }
   }
+
+    public void addClick(){
+        Button getClassData = (Button) findViewById(R.id.getClass);
+        getClassData.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                launchActivity();
+            }
+        });
+    }
+
+    private void launchActivity() {
+        Intent intent = new Intent(this, classData.class);
+        final Classifier.Recognition first = resultsView.getResults().get(0);
+        intent.putExtra("Title", first.getTitle());
+        intent.putExtra("Confidence", first.getConfidence());
+        startActivity(intent);
+    }
 }

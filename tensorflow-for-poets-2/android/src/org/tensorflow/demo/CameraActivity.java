@@ -83,14 +83,6 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
 
     readRoomData();
 
-    Button getClassData = (Button) findViewById(R.id.getClass);
-    getClassData.setOnClickListener(new View.OnClickListener(){
-      @Override
-      public void onClick(View view){
-        launchActivity();
-      }
-    });
-
   }
 
   //List
@@ -131,11 +123,6 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
       e.printStackTrace();
     }
 
-  }
-
-  private void launchActivity() {
-    Intent intent = new Intent(this, classData.class);
-    startActivity(intent);
   }
 
   @Override
