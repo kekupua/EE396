@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -19,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String TAG = "DatabaseHelper";
     private static final String TABLE_NAME = "rooms";
     private static final String DATABASE_NAME = "Rooms.db";
-    //Field
+    private static final String DATABASE_PATH = "/data/data/org.tensorflow.demo/databases/";
 
     private static final String COL_1 = "_CourseNum";
     private static final String COL_2 = "_CourseTitle";
@@ -30,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String COL_7 = "_ID";
 
 
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -37,19 +39,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        //SQL command
-        String createTable = "CREATE TABLE " + TABLE_NAME + "(" +
-                COL_7 + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                COL_1 + " TEXT," +
-                COL_2 + " TEXT," +
-                COL_3 + " TEXT," +
-                COL_4 + " TEXT," +
-                COL_5 + " TEXT," +
-                COL_6 + " TEXT " +
-                ");";
-        db.execSQL(createTable);
 
+            //SQL command
+            String createTable = "CREATE TABLE " + TABLE_NAME + "(" +
+                    COL_7 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    COL_1 + " TEXT," +
+                    COL_2 + " TEXT," +
+                    COL_3 + " TEXT," +
+                    COL_4 + " TEXT," +
+                    COL_5 + " TEXT," +
+                    COL_6 + " TEXT" +
+                    ");";
+            db.execSQL(createTable);
+            Log.d("CreateDB", "Database Created");
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -59,20 +63,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
     public void testaddData(Room classroom){
-        ContentValues values = new ContentValues();
-        values.put(COL_1,classroom.getCourseNum());
-        values.put(COL_2,classroom.getCourseTitle());
-        values.put(COL_3,classroom.getCourseInstr());
-        values.put(COL_4,classroom.getCourseDay());
-        values.put(COL_5,classroom.getCourseTime());
-        values.put(COL_6,classroom.getCourseLoc());
 
+        ContentValues values = new ContentValues();
+        values.put(COL_1, classroom.getCourseNum());
+        values.put(COL_2, classroom.getCourseTitle());
+        values.put(COL_3, classroom.getCourseInstr());
+        values.put(COL_4, classroom.getCourseDay());
+        values.put(COL_5, classroom.getCourseTime());
+        values.put(COL_6, classroom.getCourseLoc());
         SQLiteDatabase db = getWritableDatabase();
 
         //insert into table
-        db.insert(TABLE_NAME,null,values);
-//        Log.d("testaddData", "Just added to db: " + values);
+        db.insert(TABLE_NAME, null, values);
+        Log.d("testaddData", "Just added to db: " + values);
         db.close();
+
     }
 
     //Return list of data
@@ -122,6 +127,16 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return resultList;
     }
 
-
+    public boolean checkDataBase() {
+        SQLiteDatabase checkDB = null;
+        try {
+            checkDB = SQLiteDatabase.openDatabase(DATABASE_PATH + DATABASE_NAME, null,
+                    SQLiteDatabase.OPEN_READONLY);
+            checkDB.close();
+        } catch (SQLiteException e) {
+            // database doesn't exist yet.
+        }
+        return checkDB != null;
+    }
 
 }

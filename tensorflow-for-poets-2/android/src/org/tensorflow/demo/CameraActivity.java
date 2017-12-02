@@ -80,8 +80,13 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
     } else {
       requestPermission();
     }
-
-    readRoomData();
+    boolean DBexist = mDatabase.checkDataBase();
+    if(DBexist){
+      Log.d("DBexist", "Database exists");
+    }
+    else {
+      readRoomData();
+    }
   }
 
   //read from csv
