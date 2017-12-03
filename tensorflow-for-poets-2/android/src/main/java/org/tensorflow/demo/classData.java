@@ -60,10 +60,7 @@ public class classData extends Activity {
         //mDatabase is the Database class, getRoomclasses will return a List of "Room Objects" that matches the CourseLocation you passed
         //in (i.e. mDatabase.getRoomclasses("HOLM 387");
         List<Room> result;
-        result = mDataBase.getRoomclasses("SAKAM C101");
-        for (Room item : result) {
-            System.out.println(item);
-        }
+        result = mDataBase.getRoomclasses(roomTitle);
 
         result = filterRooms(result);
         ArrayAdapter adapter = new ArrayAdapter<Room>(this,
@@ -123,18 +120,18 @@ public class classData extends Activity {
                     //You should ensure that list doesn't contain null values!
                     String r1Time = r1.getCourseTime();
                     char m1 = r1Time.charAt(9);
-                    r1Time = r1Time.substring(4,8);
+                    r1Time = r1Time.substring(5,9);
                     int r1I = Integer.parseInt(r1Time);
-                    System.out.println(r1I);
+                    System.out.println(r1Time);
                     if(m1 == 'p' && r1I-1200<0){
                         r1I = r1I + 1200;
                     }
 
                     String r2Time = r2.getCourseTime();
                     char m2 = r2Time.charAt(9);
-                    r2Time = r2Time.substring(4,8);
+                    r2Time = r2Time.substring(5,9);
                     int r2I = Integer.parseInt(r2Time);
-                    System.out.println(r2I);
+                    System.out.println(r2Time);
                     if(m2 == 'p' && r2I-1200<0){
                         r2I = r2I + 1200;
                     }
