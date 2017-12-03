@@ -122,7 +122,6 @@ public class classData extends Activity {
                     char m1 = r1Time.charAt(9);
                     r1Time = r1Time.substring(5,9);
                     int r1I = Integer.parseInt(r1Time);
-                    System.out.println(r1Time);
                     if(m1 == 'p' && r1I-1200<0){
                         r1I = r1I + 1200;
                     }
@@ -131,10 +130,10 @@ public class classData extends Activity {
                     char m2 = r2Time.charAt(9);
                     r2Time = r2Time.substring(5,9);
                     int r2I = Integer.parseInt(r2Time);
-                    System.out.println(r2Time);
                     if(m2 == 'p' && r2I-1200<0){
                         r2I = r2I + 1200;
                     }
+
                     return r1I-r2I;
                 }
             });
