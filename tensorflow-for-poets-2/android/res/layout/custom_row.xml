@@ -1,20 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="100">
 
     <TextView
         android:id="@+id/courseNum"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="25sp" />
+        android:layout_height="60dp"
+        android:layout_weight="66.6"
+        android:gravity="center"
+        android:text="courseNum"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="25dp" />
 
-    <TextView
-        android:id="@+id/courseDay"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="20sp" />
+        android:layout_weight="33.3"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/courseTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="courseTime"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="23sp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/courseDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CourseDay"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="23sp"
+            android:gravity="center"/>
+
+    </LinearLayout>
 
 </LinearLayout>

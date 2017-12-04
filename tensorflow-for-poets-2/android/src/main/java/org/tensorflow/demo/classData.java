@@ -35,7 +35,7 @@ import java.util.List;
 public class classData extends Activity {
 
     DatabaseHelper mDataBase = new DatabaseHelper(this);
-
+    private CustomAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,19 +67,23 @@ public class classData extends Activity {
 
         result = mDataBase.getRoomclasses(roomTitle);
 
-        //Multidimensional Array to hold values
-        String[][] resultValues= getValuesOfObjects(filterRooms(result));
-/*
-        ListAdapter adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                resultValues[0]);
-*/
-        ListAdapter adapter = new CustomAdapter(this,resultValues[0]);
-        // Get Listview
+        result = filterRooms(result);
+
         ListView classes = (ListView) findViewById(R.id.classes);
 
+        //create adapter
+        adapter = new CustomAdapter(getApplicationContext(),result);
         classes.setAdapter(adapter);
 
+        //Set onClick Listener
+
+        classes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //what happens on click
+
+            }
+        });
 
         //Log.d("CourseList","List: " + result);
 
