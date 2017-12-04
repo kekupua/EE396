@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.tensorflow.demo.DatabaseHelper;
 import org.tensorflow.demo.env.Room;
 
@@ -81,7 +83,9 @@ public class classData extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //what happens on click
-
+                String thisCourseTitle = view.getTag().toString();
+                Toast toast = Toast.makeText(getApplicationContext(), thisCourseTitle, Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
 

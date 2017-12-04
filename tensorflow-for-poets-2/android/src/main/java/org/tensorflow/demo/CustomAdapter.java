@@ -47,14 +47,15 @@ class CustomAdapter extends BaseAdapter{
         View customView = View.inflate(mContext,R.layout.custom_row,null);
 
         TextView courseNum = (TextView) customView.findViewById(R.id.courseNum);
-        TextView courseDay = (TextView) customView.findViewById(R.id.courseDay);
+        TextView courseInstr = (TextView) customView.findViewById(R.id.courseInstr);
         TextView courseTime = (TextView) customView.findViewById(R.id.courseTime);
 
         //Set text values for each class
         courseNum.setText(mRoomlist.get(position).getCourseNum());
-        courseDay.setText(mRoomlist.get(position).getCourseDay());
+        courseInstr.setText(mRoomlist.get(position).getCourseInstr());
         courseTime.setText(mRoomlist.get(position).getCourseTime());
 
+        customView.setTag(mRoomlist.get(position).getCourseTitle());
         return customView;
     }
 
