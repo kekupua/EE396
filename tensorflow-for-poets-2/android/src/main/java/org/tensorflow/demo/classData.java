@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -19,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -63,27 +65,50 @@ public class classData extends Activity {
 
         Log.d("Room Title", "Room Title: " + roomTitle);
 
-        result = mDataBase.getRoomclasses("SAKAM C101");
+        result = mDataBase.getRoomclasses(roomTitle);
 
-        result = filterRooms(result);
-
-        String[] courseNums = new String[result.size()];
-
-        for (int i = 0; i<result.size(); i++){
-            courseNums[i] = result.get(i).getCourseNum();
-        }
-
+        //Multidimensional Array to hold values
+        String[][] resultValues= getValuesOfObjects(filterRooms(result));
+/*
         ListAdapter adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
-                courseNums);
+                resultValues[0]);
+*/
+        ListAdapter adapter = new CustomAdapter(this,resultValues[0]);
         // Get Listview
         ListView classes = (ListView) findViewById(R.id.classes);
 
         classes.setAdapter(adapter);
 
+
         //Log.d("CourseList","List: " + result);
 
     }
+
+    private String[][] getValuesOfObjects(ArrayList<Room> result){
+        String[] courseNum = new String[result.size()];
+        String[] courseTitle = new String[result.size()];
+        String[] courseInstr = new String[result.size()];
+        String[] courseDay = new String[result.size()];
+        String[] courseTime = new String[result.size()];
+        String[] courseLoc = new String[result.size()];
+
+        //Turn result objects into string arrays
+        for (int i = 0; i<result.size(); i++){
+            courseNum[i] = result.get(i).getCourseNum();
+            courseTitle[i] = result.get(i).getCourseTitle();
+            courseInstr[i] = result.get(i).getCourseInstr();
+            courseDay[i] = result.get(i).getCourseDay();
+            courseTime[i] = result.get(i).getCourseTime();
+            courseLoc[i] = result.get(i).getCourseLoc();
+        }
+
+        //store array of result strings into an array
+        String[] resultValues[] = {courseNum,courseTitle,courseInstr,courseDay,courseTime,courseLoc};
+
+        return resultValues;
+    }
+
 
     private String parseRoom(String room) {
         if (room.charAt(0)=='h' && room.charAt(1)=='h') {
