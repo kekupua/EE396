@@ -67,10 +67,15 @@ public class classData extends Activity {
 
         result = filterRooms(result);
 
+        String[] courseNums = new String[result.size()];
 
-        ListAdapter adapter = new ArrayAdapter<Room>(this,
+        for (int i = 0; i<result.size(); i++){
+            courseNums[i] = result.get(i).getCourseNum();
+        }
+
+        ListAdapter adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
-                result);
+                courseNums);
         // Get Listview
         ListView classes = (ListView) findViewById(R.id.classes);
 
