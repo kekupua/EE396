@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import org.tensorflow.demo.DatabaseHelper;
@@ -46,8 +47,6 @@ public class classData extends Activity {
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(roomTitle.toUpperCase());
 
-        // Get Listview
-        ListView classes = (ListView) findViewById(R.id.classes);
 
         Button goBack = (Button) findViewById(R.id.goCamera);
         goBack.setOnClickListener(new View.OnClickListener() {
@@ -59,13 +58,22 @@ public class classData extends Activity {
 
         //mDatabase is the Database class, getRoomclasses will return a List of "Room Objects" that matches the CourseLocation you passed
         //in (i.e. mDatabase.getRoomclasses("HOLM 387");
-        List<Room> result;
-        result = mDataBase.getRoomclasses(roomTitle);
+
+        ArrayList<Room> result;
+
+        Log.d("Room Title", "Room Title: " + roomTitle);
+
+        result = mDataBase.getRoomclasses("SAKAM C101");
 
         result = filterRooms(result);
-        ArrayAdapter adapter = new ArrayAdapter<Room>(this,
+
+
+        ListAdapter adapter = new ArrayAdapter<Room>(this,
                 android.R.layout.simple_list_item_1,
                 result);
+        // Get Listview
+        ListView classes = (ListView) findViewById(R.id.classes);
+
         classes.setAdapter(adapter);
 
         //Log.d("CourseList","List: " + result);
@@ -79,7 +87,7 @@ public class classData extends Activity {
         return room;
     }
 
-    private List<Room> filterRooms(List<Room> allRooms){
+    private ArrayList<Room> filterRooms(List<Room> allRooms){
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         char DotW;
@@ -106,7 +114,7 @@ public class classData extends Activity {
                 DotW = 'T';
         }
         DotW = 'T';
-        List<Room> filtered = new ArrayList<>();
+        ArrayList<Room> filtered = new ArrayList<>();
         for (Room item : allRooms) {
             if(item.getCourseDay().indexOf(DotW) >= 0){
                 filtered.add(item);

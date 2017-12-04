@@ -81,9 +81,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     //Return list of data
-    public List<Room> getRoomclasses(String courseLoc){
+    public ArrayList<Room> getRoomclasses(String courseLoc){
         SQLiteDatabase db = getWritableDatabase();
-        List<Room> resultList= new ArrayList<>();
+        ArrayList<Room> resultList= new ArrayList<>();
 
         String CourseNum = "";
         String CourseTitle = "";
