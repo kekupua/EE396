@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.tensorflow.demo.classData">
+
     <RelativeLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/title"
@@ -15,9 +16,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="Class Name"
+            android:textColor="@android:color/holo_red_light"
             android:textSize="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,23 +32,50 @@
             android:layout_alignParentStart="true"
             android:text="Go Back" />
 
-        <TextClock
-            android:id="@+id/textClock"
+        <LinearLayout
+            android:id="@+id/timeview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:textSize="30dp"
-            android:text="Time" />
+            android:layout_below="@+id/title">
+
+            <TextView
+                android:id="@+id/currently"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="66.66"
+                android:gravity="center"
+                android:text="Currently:"
+                android:textColor="@android:color/background_dark"
+                android:textSize="25sp" />
+
+            <TextClock
+                android:id="@+id/textClock"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="66.66"
+                android:gravity="center"
+                android:text="Time"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/Dayofweek"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="66.66"
+                android:gravity="center"
+                android:text="DayofWeek"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="25sp" />
+
+        </LinearLayout>
 
         <ListView
             android:id="@+id/classes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/goCamera"
-            android:layout_below="@+id/textClock"
+            android:layout_below="@+id/timeview"
             android:layout_centerHorizontal="true"
 
 

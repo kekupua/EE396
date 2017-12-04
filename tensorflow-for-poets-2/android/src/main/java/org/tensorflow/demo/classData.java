@@ -46,11 +46,17 @@ public class classData extends Activity {
         Intent intent = getIntent();
         String roomTitle = intent.getStringExtra("Title");
         roomTitle = parseRoom(roomTitle);
+        //Get day of week
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date d = new Date();
+        String dayOfTheWeek = sdf.format(d);
 
         // Capture the layout's TextView and set the string as its text
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(roomTitle.toUpperCase());
 
+        TextView DayofWeek = (TextView) findViewById(R.id.Dayofweek);
+        DayofWeek.setText(dayOfTheWeek);
 
         Button goBack = (Button) findViewById(R.id.goCamera);
         goBack.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +73,7 @@ public class classData extends Activity {
 
         Log.d("Room Title", "Room Title: " + roomTitle);
 
-        result = mDataBase.getRoomclasses(roomTitle);
+        result = mDataBase.getRoomclasses("ART 132");
 
         result = filterRooms(result);
 
@@ -151,7 +157,7 @@ public class classData extends Activity {
             default:
                 DotW = 'T';
         }
-        DotW = 'T';
+  //      DotW = 'T';
         ArrayList<Room> filtered = new ArrayList<>();
         for (Room item : allRooms) {
             if(item.getCourseDay().indexOf(DotW) >= 0){

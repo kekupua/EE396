@@ -9,7 +9,7 @@
         android:id="@+id/courseNum"
         android:layout_width="match_parent"
         android:layout_height="68sp"
-        android:layout_weight="66.6"
+        android:layout_weight="55"
         android:gravity="center"
         android:text="courseNum"
         android:textAlignment="center"
@@ -19,7 +19,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="33.3"
+        android:layout_weight="45"
         android:orientation="vertical">
 
         <TextView
